@@ -8,4 +8,10 @@ resource "azurerm_mssql_server" "adrian_sql_server" {
   version                      = var.mssql_server.version
   administrator_login          = var.mssql_server.administrator_login
   administrator_login_password = var.mssql_server.administrator_login_password
+
+  # !!! search for purpose and usage it's used !!!
+  # azuread_administrator {
+  #   login_username = "AzureAD Admin"
+  #   object_id      = "00000000-0000-0000-0000-000000000000"
+  # }
 }
