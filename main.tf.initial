@@ -1,0 +1,58 @@
+resource "azurerm_resource_group" "adrian_rg" {
+  name     = "rg-weu-enot-dev-adrian"
+  location = "West Europe"
+}
+
+resource "azurerm_storage_account" "adrian_storage" {
+  name                     = "storageadrian"
+  resource_group_name      = "rg-weu-enot-dev-adrian"
+  location                 = "West Europe"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  depends_on = [
+    azurerm_resource_group.adrian_rg
+  ]
+
+  tags = {
+    env = "dev"
+  }
+
+}
+
+resource "azurerm_mssql_server" "adrian_sql_server" {
+  name                         = "sql-weu-enot-dev-adrian"
+  resource_group_name          = "rg-weu-enot-dev-adrian"
+  location                     = "West Europe"
+  version                      = "12.0"
+  administrator_login          = "sql_admin"
+  administrator_login_password = "pass1234$"
+
+  depends_on = [
+    azurerm_storage_account.adrian_storage
+  ]
+
+  tags = {
+    env = "dev"
+  }
+
+}
+
+resource "azurerm_mssql_database" "adrian_sqldb" {
+  name           = "sqldb-weu-enot-dev-adrian"
+  server_id      = "${azurerm_mssql_server.adrian_sql_server.id}"
+  collation      = "SQL_Latin1_General_CP1_CI_AS"
+  license_type   = "LicenseIncluded"
+  max_size_gb    = 5
+  read_scale     = false
+  sku_name       = "S0"
+  zone_redundant = false
+
+  depends_on = [
+    azurerm_mssql_server.adrian_sql_server
+  ]
+
+  tags = {
+    env = "dev"
+  }
+}
