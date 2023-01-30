@@ -1,4 +1,4 @@
-resource "azurerm_mssql_server" "adrian_sql_server" {
+resource "azurerm_mssql_server" "mssql_server" {
   # if the variable "mssql_server" is populated (is NOT null), 
   # it will create one occurence of this resource
   count                        = var.mssql_server == null ? 0 : 1
@@ -8,6 +8,7 @@ resource "azurerm_mssql_server" "adrian_sql_server" {
   version                      = var.mssql_server.version
   administrator_login          = var.mssql_server.administrator_login
   administrator_login_password = var.mssql_server.administrator_login_password
+  tags                         = var.tags
 
   # !!! search for purpose and usage it's used !!!
   # azuread_administrator {
