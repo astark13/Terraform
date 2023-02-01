@@ -15,11 +15,6 @@ mssql_server = [{
   }
 ] 
 
-mssql_server_id = {
-  server_name         = "sql-weu-enot-dev-adi"
-  resource_group_name = "rg-weu-enot-dev-adi"
-}
-
 mssql_db = [{
   name           = "sqldb-weu-enot-dev-adi"
   collation      = "SQL_Latin1_General_CP1_CI_AS"
@@ -28,8 +23,8 @@ mssql_db = [{
   read_scale     = false
   sku_name       = "S0"
   zone_redundant = false
-  mssql_server_id = {
-    server_name         = "sql-weu-enot-dev-adi"
+  mssql_server = {
+    name         = "sql-weu-enot-dev-adi"
     resource_group_name = "rg-weu-enot-dev-adi"
   }
  } 
