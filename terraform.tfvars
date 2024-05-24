@@ -29,4 +29,22 @@ mssql_db = [{
   }
  } 
 ]
+
+dashboard = [
+  { name                 = "watea-gateway-data-collection-dev-adrian"
+    resource_group       = "rg-watgw-watea-gateway-monitoring"
+    location             = "westeurope"
+    template_path        = "resources/watea_gateway_data_collection.tpl"
+    dashboard_properties = {
+      environment_type = "dev"
+      location         = "westeurope"
+      subscription_id  = "cc40dd1c-a034-4332-b88b-40d9131cb5db"
+      project_name     = "watea-gateway"
+      project_code     = "watgw"
+    }
+      # tags                = list(object({
+      #   name = 
+      # }))
+  }
+]
  

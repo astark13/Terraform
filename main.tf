@@ -24,3 +24,30 @@ module "mssql_db" {
     module.mssql_server
   ]
 }
+
+# module "azurerm_portal_dashboard" {
+#   for_each  = { for dashboard in var.dashboard : dashboard.name => dashboard}
+#   source    = "./modules"
+#   dashboard = each.value
+# }
+
+module "azurerm_portal_dashboard" {
+  source    = "./modules"
+  dashboard = [
+    { name                 = "watea-gateway-data-collection-dev-adrian"
+      resource_group       = "rg-watgw-watea-gateway-monitoring"
+      location             = "westeurope"
+      template_path        = "resources/watea_gateway_data_collection.tpl"
+      dashboard_properties = {
+        environment_type = "dev"
+        location         = "westeurope"
+        subscription_id  = "cc40dd1c-a034-4332-b88b-40d9131cb5db"
+        project_name     = "watea-gateway"
+        project_code     = "watgw"
+      }
+      # tags                = list(object({
+      #   name = 
+      # }))
+    }
+  ]
+}

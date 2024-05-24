@@ -46,3 +46,24 @@ variable "mssql_db" {
     })
   )
 }
+
+variable "dashboard" {
+  type = list(
+    object({
+      name                 = string
+      resource_group       = string
+      location             = string
+      template_path        = string
+      dashboard_properties = object({
+        environment_type = string
+        location         = string
+        subscription_id  = string
+        project_name     = string
+        project_code     = string
+      })
+      # tags                = list(object({
+      #   name = 
+      # }))
+    })
+  )
+}
